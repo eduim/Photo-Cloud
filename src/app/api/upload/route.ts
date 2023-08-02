@@ -17,9 +17,15 @@ export async function GET(request: Request) {
 
   const s3 = new S3Client({ region: process.env.AWS_REGION });
 
-  const userId = randomUUID();
+  // const userId = randomUUID();
+  // const fileId = randomUUID();
 
-  const key = `${userId}.${filename}`;
+  const userId = "1";
+  let fileId = 0;
+
+  const key = `${userId}/${fileId}.${filename}`;
+
+  fileId++;
 
   if (!process.env.BUCKET_NAME) {
     return new Response("Missing BUCKET_NAME", {

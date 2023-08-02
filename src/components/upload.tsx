@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
-export default function Home() {
+export default function Upload() {
   const [fileList, setFileList] = useState<FileList | null>(null);
   const [caption, setCaption] = useState("");
 
