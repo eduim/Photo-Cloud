@@ -18,28 +18,11 @@ export default function Home() {
         );
         const { url, fields } = await res.json();
 
-        const data = {
-          ...fields,
-          "Content-Type": filetype,
-          file,
-        };
-
         const formData = new FormData();
 
-        for (const name in data) {
-          formData.append(name, data[name] as string);
-        }
-
-        Object.entries(fields).forEach(([field, value]) => {
-          formData.append(field, value as string);
+        Object.entries({ ...fields, file }).forEach(([key, value]) => {
+          formData.append(key, value as string);
         });
-        formData.append("file", file);
-
-        // const formData = new FormData();
-
-        // Object.entries({ ...fields, file }).forEach(([key, value]) => {
-        //   formData.append(key, value as string);
-        // });
 
         const options = {
           method: "POST",
@@ -47,8 +30,8 @@ export default function Home() {
         };
 
         const upload = await fetch(url, options);
-
-        if (upload.status === 200) {
+        console.log(upload.body);
+        if (upload.ok) {
           console.log("Uploaded successfully!");
         } else {
           console.error("Upload failed.");

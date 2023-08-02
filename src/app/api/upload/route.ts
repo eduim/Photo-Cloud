@@ -34,6 +34,7 @@ export async function GET(request: Request) {
   const Conditions = [
     { bucket: process.env.BUCKET_NAME },
     ["starts-with", "$key", userId],
+    ["starts-with", "$Content-Type", filetype],
   ] as Condition;
 
   const { url, fields } = await createPresignedPost(s3, {
