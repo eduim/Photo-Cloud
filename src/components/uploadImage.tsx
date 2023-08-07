@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
-import axios from "axios";
-export default function Upload() {
+
+export default function UploadImage() {
   const [fileList, setFileList] = useState<FileList | null>(null);
   const [caption, setCaption] = useState("");
 
@@ -30,7 +30,7 @@ export default function Upload() {
         };
 
         const upload = await fetch(url, options);
-        console.log(upload.body);
+
         if (upload.ok) {
           console.log("Uploaded successfully!");
         } else {
@@ -42,11 +42,12 @@ export default function Upload() {
 
   const filesSelected = (event: ChangeEvent<HTMLInputElement>) => {
     const fileList = event.target.files;
+
     if (fileList) setFileList(fileList);
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <>
       <form
         onSubmit={submit}
         style={{ width: 650 }}
@@ -75,6 +76,6 @@ export default function Upload() {
             </li>
           ))}
       </ul>
-    </main>
+    </>
   );
 }

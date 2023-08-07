@@ -1,24 +1,42 @@
-import Upload from "@/components/upload";
+import UploadImage from "@/components/uploadImage";
 
 import Image from "next/image";
-
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-
+import ImageGallery from "@/components/imageGallery";
+import getImage from "@/lib/getImage";
 export default async function Home() {
-  const s3 = new S3Client({ region: process.env.AWS_REGION });
+  const key = "1/0.IMG_20220215_113007.jpg";
 
-  const input = {
-    Bucket: process.env.BUCKET_NAME,
-    Key: "1/0.IMG_20220215_113007.jpg",
-  };
-  const command = new GetObjectCommand(input);
-  const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
-  console.log(url);
+  const url = await getImage(key);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Image src={url} alt="" width={300} height={300} />
-      <Upload />
+    <main className="flex min-h-screen flex-col  p-24">
+      <UploadImage />
+      {/* <Image
+        src={url}
+        alt=""
+        width={100}
+        height={100}
+        quality={75}
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+        }}
+      /> */}
+      <div className="grid-cols-3">
+        <ImageGallery imageId={key}>
+          <div className="min-30 relative">
+            <Image
+              src={url}
+              alt=""
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "100%", height: "auto" }}
+              loading="lazy"
+            />
+          </div>
+        </ImageGallery>
+      </div>
     </main>
   );
 }
