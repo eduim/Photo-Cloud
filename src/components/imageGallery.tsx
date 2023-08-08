@@ -11,7 +11,7 @@ interface Props {
 
 const ImageGallery: FC<Props> = ({ imageId, children }) => {
   const [selected, setSelected] = useState(false);
-  console.log(imageId);
+
   const handleSelect = (id: string) => {
     setSelected(!selected);
   };
@@ -28,32 +28,19 @@ const ImageGallery: FC<Props> = ({ imageId, children }) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    // const presignedUrl = await response.json();
-    // console.log(presignedUrl);
-
-    // fetch(presignedUrl)
-    //   .then((res) => res.blob())
-    //   .then((blob) => {
-    //     console.log(blob);
-    //     const url = window.URL.createObjectURL(blob);
-    //     const link = document.createElement("a");
-    //     link.href = url;
-    //     link.download = imageId;
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     document.body.removeChild(link);
-    //   });
   };
 
   return (
     <>
-      <button onClick={() => handleSubmit(imageId)}>download files</button>
+      {/* <button onClick={() => handleSubmit(imageId)}>download files</button> */}
 
       <div
         key={imageId}
         className={classNames(
-          selected ? "border-red-300 opacity-80" : "border-black",
-          "border-2 border-solid"
+          selected
+            ? "border-red-300 opacity-80"
+            : "border-2 border-transparent",
+          "border-2 rounded-md border-solid h-56 w-56 min-h-56 min-w-56 relative"
         )}
         onClick={() => handleSelect(imageId)}
       >
