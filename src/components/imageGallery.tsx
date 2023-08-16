@@ -36,6 +36,7 @@ const ImageGallery: FC<Props> = ({ imagesWithUrl }) => {
 
       const requestUrl = await fetch(presignedUrl);
       const blob = await requestUrl.blob();
+      // console.log(blob);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
