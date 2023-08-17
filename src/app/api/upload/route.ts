@@ -21,7 +21,6 @@ export async function GET(request: Request) {
     userId,
     filetype
   );
-  console.log(url, fields);
 
   return new Response(JSON.stringify({ url, fields }));
 }
