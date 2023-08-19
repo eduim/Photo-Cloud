@@ -6,8 +6,6 @@ import { revalidatePath } from "next/cache";
 export async function POST(request: NextRequest) {
   const images = await request.json();
 
-  console.log(request.nextUrl.origin);
-  console.log(request.nextUrl.pathname);
   const originUrl = new URL(request.url);
 
   // const path = originUrl.searchParams.get("path") as string;

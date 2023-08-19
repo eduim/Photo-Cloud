@@ -1,25 +1,9 @@
-interface DeleteImageProps {
-  selectedImages: string[];
-}
+import { DeleteImageProps } from "@/types";
 
-const DeleteImage = ({ selectedImages }: DeleteImageProps) => {
-  const handleDelete = async () => {
-    if (selectedImages.length === 0) return;
-    await fetch("/api/delete", {
-      method: "POST",
-      body: JSON.stringify(selectedImages),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
+const DeleteImage = ({ handleDeleteImages, deleteState }: DeleteImageProps) => {
   return (
-    <button
-      className="mt-3 border border-black "
-      onClick={() => handleDelete()}
-    >
-      Delete files {<span>Deleting...</span>}
+    <button className="mt-3 border border-black " onClick={handleDeleteImages}>
+      Delete files {deleteState.loading && <span>Deleting...</span>}
     </button>
   );
 };

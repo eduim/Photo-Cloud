@@ -68,7 +68,7 @@ export const s3 = {
       Key: key,
       Conditions,
       Fields,
-      Expires: 60, //Seconds before the presigned post expires. 3600 by default.
+      Expires: 60,
     });
 
     return { url, fields };
