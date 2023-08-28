@@ -1,42 +1,14 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-
-interface DownloadImageProps {
-  imagesWithUrl: ImagesWithUrl[];
-  selectedImages: string[];
-}
-
-interface ImagesWithUrl {
-  url: string;
-  imageId: string;
-}
-
+import { DownloadImageProps } from "@/types";
 const DownloadImage = ({
-  imagesWithUrl,
-  selectedImages,
+  downloadState,
+  handleDownloadImages,
 }: DownloadImageProps) => {
-  const [download, setDownloading] = useState(false);
+  const downloadText = downloadState.loading
+    ? "Downloading..."
+    : "Download images";
 
-  const handleDownload = async () => {
-    setDownloading(true);
-    for (const imageId of selectedImages) {
-      const url = imagesWithUrl.find((image) => image.imageId === imageId)
-        ?.url as string;
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = imageId;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    setDownloading(false);
-  };
-
-  return (
-    <Button onClick={() => handleDownload()}>
-      Download files {download && <span>downloading...</span>}
-    </Button>
-  );
+  return <Button onClick={handleDownloadImages}>{downloadText}</Button>;
 };
 
 export default DownloadImage;

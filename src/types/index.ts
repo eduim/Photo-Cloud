@@ -9,14 +9,10 @@ export type ImagesWithUrl = {
   imageId: string;
 };
 
-export interface DeleteImageProps {
-  handleDeleteImages: MouseEventHandler<HTMLButtonElement>;
-  deleteState: DeleteGallery;
-}
-
 export type ImageGalleryActionsStates = {
   delete: DeleteGallery;
   upload: UploadGallery;
+  download: DownloadGallery;
 };
 
 export type DeleteGallery = {
@@ -25,7 +21,12 @@ export type DeleteGallery = {
 };
 
 export type UploadGallery = {
-  delete: boolean;
+  error: boolean;
+  loading: boolean;
+};
+
+export type DownloadGallery = {
+  error: boolean;
   loading: boolean;
 };
 
@@ -34,4 +35,13 @@ export interface UploadImageProps {
   handleSelectImageUpload: (event: ChangeEvent<HTMLInputElement>) => void;
   handleUploadImages: (event: FormEvent) => void;
   uploadState: UploadGallery;
+}
+export interface DeleteImageProps {
+  handleDeleteImages: MouseEventHandler<HTMLButtonElement>;
+  deleteState: DeleteGallery;
+}
+
+export interface DownloadImageProps {
+  handleDownloadImages: MouseEventHandler<HTMLButtonElement>;
+  downloadState: DownloadGallery;
 }

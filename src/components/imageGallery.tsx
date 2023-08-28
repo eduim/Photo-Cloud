@@ -16,12 +16,16 @@ const ImageGallery = ({ imagesWithUrl }: ImageGalleryProps) => {
     handleDeleteImages,
     handleUploadImages,
     handleSelectImageUpload,
+    handleDownloadImages,
   } = useGallery(imagesWithUrl);
 
   return (
     <main className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
       <div className="my-2 flex gap-1">
-        <DownloadImage imagesWithUrl={images} selectedImages={selectedImages} />
+        <DownloadImage
+          downloadState={actionsState.download}
+          handleDownloadImages={handleDownloadImages}
+        />
         <DeleteImage
           handleDeleteImages={handleDeleteImages}
           deleteState={actionsState.delete}

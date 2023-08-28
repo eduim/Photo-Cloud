@@ -4,18 +4,22 @@ import { ImagesWithUrl, ImageGalleryActionsStates } from "@/types";
 const useGallery = (imagesWithUrl: ImagesWithUrl[]) => {
   const [images, setImages] = useState(imagesWithUrl);
   const [fileListUpload, setFileListUpload] = useState<FileList | null>(null);
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [actionsState, setActionsState] = useState<ImageGalleryActionsStates>({
     delete: {
       error: false,
       loading: false,
     },
     upload: {
-      delete: false,
+      error: false,
+      loading: false,
+    },
+    download: {
+      error: false,
       loading: false,
     },
   });
 
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const handleSelectImage = (imageId: string) => {
     if (selectedImages.includes(imageId)) {
       setSelectedImages((prevSelectedImages) =>
@@ -76,6 +80,8 @@ const useGallery = (imagesWithUrl: ImagesWithUrl[]) => {
           },
         }));
       });
+
+    setSelectedImages([]);
   };
 
   const handleUploadImages = async (event: FormEvent) => {
@@ -133,11 +139,41 @@ const useGallery = (imagesWithUrl: ImagesWithUrl[]) => {
     }
   };
 
+  const handleDownloadImages = async () => {
+    setActionsState((prevState) => ({
+      ...prevState,
+      download: {
+        ...prevState.download,
+        download: true,
+      },
+    }));
+    for (const imageId of selectedImages) {
+      const url = imagesWithUrl.find((image) => image.imageId === imageId)
+        ?.url as string;
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = imageId;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    setActionsState((prevState) => ({
+      ...prevState,
+      download: {
+        ...prevState.download,
+        download: false,
+      },
+    }));
+    setSelectedImages([]);
+  };
+
   return {
     images,
     selectedImages,
     actionsState,
     fileListUpload,
+    handleDownloadImages,
     handleSelectImage,
     handleDeleteImages,
     handleUploadImages,
