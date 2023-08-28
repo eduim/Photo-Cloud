@@ -1,10 +1,11 @@
 import { DeleteImageProps } from "@/types";
+import { Button } from "@/components/ui/button";
 
 const DeleteImage = ({ handleDeleteImages, deleteState }: DeleteImageProps) => {
   return (
-    <button className="mt-3 border border-black " onClick={handleDeleteImages}>
+    <Button onClick={handleDeleteImages}>
       Delete files {deleteState.loading && <span>Deleting...</span>}
-    </button>
+    </Button>
   );
 };
 

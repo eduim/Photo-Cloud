@@ -16,6 +16,6 @@ export async function GET(request: Request) {
   const imageId = `${userId}/${fileId}.${filename}`;
 
   const url = await s3.getImageObject(imageId);
-  console.log("url", url);
+
   return new Response(JSON.stringify({ url, imageId }));
 }

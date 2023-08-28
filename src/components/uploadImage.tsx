@@ -1,5 +1,7 @@
-"use client";
 import { UploadImageProps } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
 export default function UploadImage({
   fileListUpload,
   handleSelectImageUpload,
@@ -10,26 +12,27 @@ export default function UploadImage({
     <>
       <form
         onSubmit={handleUploadImages}
-        style={{ width: 650 }}
-        className="flex flex-col space-y-5 px-5 py-14"
+        className="flex m-0 justify-between gap-1 my-2 "
       >
-        <input
+        <Input
           onChange={handleSelectImageUpload}
           type="file"
           accept="image/*"
           multiple
-        ></input>
+        ></Input>
 
-        <button type="submit">
+        <Button type="submit">
           Upload {uploadState.loading && <span>Uploading...</span>}
-        </button>
+        </Button>
       </form>
 
-      <ul>
+      <ul className="mb-4">
         {fileListUpload &&
           Array.from(fileListUpload).map((file, i) => (
             <li key={i}>
-              {file.name} - {file.type} - {file.size / 1000000}
+              <Card className="flex justify-center text-center my-1">
+                <CardContent className="py-1">{file.name}</CardContent>
+              </Card>
             </li>
           ))}
       </ul>

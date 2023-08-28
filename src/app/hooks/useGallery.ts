@@ -80,6 +80,7 @@ const useGallery = (imagesWithUrl: ImagesWithUrl[]) => {
 
   const handleUploadImages = async (event: FormEvent) => {
     event.preventDefault();
+
     setFileListUpload(null);
     setActionsState((prevState) => ({
       ...prevState,

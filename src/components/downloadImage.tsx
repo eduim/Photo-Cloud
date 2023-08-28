@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 interface DownloadImageProps {
   imagesWithUrl: ImagesWithUrl[];
@@ -32,9 +33,9 @@ const DownloadImage = ({
   };
 
   return (
-    <button className="border border-black " onClick={() => handleDownload()}>
-      download files {download && <span>downloading...</span>}
-    </button>
+    <Button onClick={() => handleDownload()}>
+      Download files {download && <span>downloading...</span>}
+    </Button>
   );
 };
 
